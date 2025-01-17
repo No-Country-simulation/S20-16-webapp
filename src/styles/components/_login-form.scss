@@ -1,0 +1,115 @@
+// Estilos para el formulario
+.form-frame {
+  // Fondo blanco semitransparente para el formulario
+  background: rgba(255, 255, 255, 0.9);
+  // Espaciado interno definido por una variable (debe declararse en otro lugar)
+  padding: $form-padding;
+  // Bordes redondeados
+  border-radius: 15px;
+  // Sombra para dar profundidad al formulario
+  box-shadow: $box-shadow;
+  // El formulario ocupa el 100% del ancho disponible pero con un máximo de 400px
+  width: 100%;
+  max-width: 500px;
+  // Centrado vertical y horizontal mediante margen automático
+  margin: 5rem auto;
+
+  h1 {
+    // Estilo del encabezado principal
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Centra el texto */
+  }
+
+  h2 {
+    // Estilo para encabezados secundarios
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .form-control {
+    // Mixin para entradas con bordes redondeados (debe definirse en otro archivo)
+    @include rounded-input;
+    
+    // Espaciado interno para los campos de entrada
+    padding: 0.75rem;
+    
+    // Hacer que el ancho sea responsivo
+    width: 100%;
+    max-width: 600px; /* Ajusta según tus necesidades */
+  
+    &:focus {
+      // Color del borde y sombra cuando el campo está enfocado
+      border-color: $primary-color;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  .forgot-password {
+    // Margen inferior para separar del siguiente elemento
+    margin-bottom: $button-spacing;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    &:hover {
+      // Subrayado al pasar el cursor
+      text-decoration: underline;
+    }
+  }
+
+  button {
+    // Color de fondo para los botones
+    background-color: $gray-color;
+    @include rounded-input;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    padding: 0.75rem;
+    &:hover {
+      // Oscurece el color del botón al pasar el cursor
+      background-color: $colorHover;
+    }
+  }
+
+  .btn-inactive {
+    // Botón desactivado con color gris
+    background-color: gray;
+    color: white;
+  }
+
+  .btn-active {
+    // Botón activado con un color primario definido
+    background-color: $secondary-color;
+    color: white;
+  }
+}
+
+// Media query para pantallas pequeñas (ancho máximo de 768px)
+@media (max-width: 768px) {
+  .pass-view {
+    // Ajuste de relleno para vista de contraseña en pantallas pequeñas
+    padding: 1rem;
+  }
+
+  .form-frame {
+    // Ajuste de espaciado interno y ancho del formulario
+    padding: 1rem;
+    width: 100%;
+  }
+
+  h1.edulink {
+    // Tamaño de fuente reducido para el logo o encabezado
+    font-size: 1.5rem;
+  }
+}
+
+// Media query para pantallas medianas (entre 768px y 991px)
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-frame {
+    // Ajuste de relleno y ancho para pantallas medianas
+    padding: 1.5rem;
+    width: 80%;
+  }
+}
