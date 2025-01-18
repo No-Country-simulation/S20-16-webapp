@@ -15,7 +15,7 @@ namespace EduLink.Entidades.EntidadesBDD
         public MateriaEnum NombreMateria { get; set; }
         public int AnioDeLaMateria { get; set; }
         public int Cuatrimestre { get; set; }
-        public DateOnly Fecha { get; set; }// ver si está bien
+        public DateOnly Fecha { get; set; }
         public int Correlativa { get; set; }
 
         public int ModuloId { get; set; }

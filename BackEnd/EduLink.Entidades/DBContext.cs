@@ -9,7 +9,14 @@ namespace ProbandoMigracionMySQL.Entidades
         public DBContext() { }
         public DBContext(DbContextOptions<DBContext> options) : base(options) { }
 
-        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Ciudad> Ciudades { get; set; }
+        public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<EstudianteExamen> EstudiantesExamenes { get; set; }
+        public DbSet<EstudianteMateria> EstudiantesMaterias { get; set; }
+        public DbSet<Examen> Examenes { get; set; }
+        public DbSet<Materia> Materias { get; set; }
+        public DbSet<Modulo> Modulos { get; set; }
+        public DbSet<Provincia> Provincias { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -77,9 +84,10 @@ namespace ProbandoMigracionMySQL.Entidades
             {
                 entity.ToTable("EstudiantesExamenes");
                 entity.HasKey(e => e.EstudianteExamenId);
-                entity.Property(e => e.Nota); // nulo porque creo el registro de constancia,pero luego será la nota
-                entity.Property(e => e.EstadoExamen)
+                entity.Property(e => e.Nota).HasColumnType("decimal(3, 1)"); // nulo porque creo el registro de constancia,pero luego será la nota
+                entity.Property(e => e.EstadoExamen) //ENUM!!!
                       .HasConversion<string>()
+                      .HasMaxLength(50)
                       .IsRequired();
                 entity.HasOne(e => e.Estudiante)
                 .WithMany(e => e.EstudiantesExamenes)
@@ -111,9 +119,9 @@ namespace ProbandoMigracionMySQL.Entidades
                 entity.ToTable("EstudiantesMaterias");
                 entity.HasKey(e => e.EstudianteMateriaId);
                 entity.Property(e => e.AnioCursado)
-                .HasMaxLength(4).IsRequired();
-                entity.Property(e => e.EstadoMateria)
-                .HasConversion<string>()
+                .HasMaxLength(2).IsRequired();
+                entity.Property(e => e.EstadoMateria) // ENUM!!!
+                .HasConversion<string>().HasMaxLength(50)
                 .IsRequired();
                 entity.HasOne(e => e.Estudiante)
                 .WithMany(e => e.EstudiantesMaterias)
@@ -127,12 +135,13 @@ namespace ProbandoMigracionMySQL.Entidades
             {
                 entity.ToTable("Materias");
                 entity.HasKey(e => e.MateriaId);
-                entity.Property(e => e.NombreMateria)// IMPORTANTE: tiene que ser nvarchar de 150, lo nombres de las materias son largos
+                entity.Property(e => e.NombreMateria)
+                .HasConversion<string>()
+                .HasMaxLength(100)
                 .IsRequired();
                 entity.Property(e => e.AnioDeLaMateria)
                 .IsRequired();
                 entity.Property(e => e.Cuatrimestre); //nulleable
-
                 entity.Property(e => e.Fecha)
                 .IsRequired();
                 entity.Property(e => e.Correlativa)// recibe 0 si no tiene

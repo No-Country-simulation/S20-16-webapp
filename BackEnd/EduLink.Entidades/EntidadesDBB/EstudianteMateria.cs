@@ -14,7 +14,7 @@ namespace EduLink.Entidades.EntidadesBDD
         public int EstudianteId { get; set; }
         public int MateriaId { get; set; }
         public string AnioCursado { get; set; }
-        public EstadoCursadaEnum EstadoMateria { get; set; }
+        public EstadoMateriaEnum EstadoMateria { get; set; }
         public Estudiante Estudiante { get; set; } // Propiedad de navegación
         public Materia Materia { get; set; } // Propiedad de navegación
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EduLink.Entidades.Enums
 {
-    public enum EstadoCursadaEnum
+    public enum EstadoMateriaEnum
     {
 
         Aprobado,

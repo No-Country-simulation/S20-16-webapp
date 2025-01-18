@@ -11,7 +11,8 @@ namespace EduLink.Entidades.Enums
 
         Aprobado,
         Desaprobado,
-        Ausente
+        Ausente,
+        Inscripto
             
     }
 }
