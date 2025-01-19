@@ -46,7 +46,7 @@ En la versión inicial del MVP:
 
 ## Tecnologías Utilizadas
 - **Back End:** ASP.NET, C#, MySQL
-- **Front End:**
+- **Front End:**Vue.js , Bootstrap
 - **UX/UI:** Figma
 - **QA:** Postman, Jira
 
