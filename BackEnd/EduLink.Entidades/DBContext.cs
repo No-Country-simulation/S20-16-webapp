@@ -47,7 +47,7 @@ namespace ProbandoMigracionMySQL.Entidades
                       .IsRequired(); // No nulleable
                 entity.HasMany(e => e.Estudiantes)
                       .WithOne(c => c.Ciudad)
-                      .HasForeignKey(c => c.EstudianteId);
+                      .HasForeignKey(c => c.CiudadId);
             });
 
             modelBuilder.Entity<Estudiante>(entity =>
