@@ -70,22 +70,11 @@ export default {
       const credentials = { email: this.email, password: this.password };
       try {
         // La respuesta contiene las credenciales, incluyendo numero_inicio
-<<<<<<< HEAD
-        const response = await this.login(credentials);       
-       
-        // Redirección usando numero_inicio desde el estado de Vuex
-        if (this.numero_inicio === 0) {       
-          
-          console.log("Redireccionando a passform");
-          this.$router.push('/passform'); // Redirige si es el primer inicio de sesión       
-          
-=======
         const response = await this.login(credentials); 
 
         // Redirección usando numero_inicio desde el estado de Vuex
         if (this.numero_inicio === 0) {
           this.$router.push('/PassForm'); // Redirige si es el primer inicio de sesión
->>>>>>> front
         } else {
           this.$router.push('/dashboard'); // Redirige al dashboard si ya no es el primer inicio
         }

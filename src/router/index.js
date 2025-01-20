@@ -2,9 +2,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import PassView from '../views/PassView.vue'
-import DashBoard from '@/views/DashBoard.vue';
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue';
+// import DashBoard from '@/views/DashBoard.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,11 +19,11 @@ const router = createRouter({
       name: 'Passform',
       component: PassView,
     },   
-    {
-      path: '/dashboard',
-      name: 'Dasboard',
-      component: DashBoard,
-    },  
+    // {
+    //   path: '/dashboard',
+    //   name: 'Dasboard',
+    //   component: DashBoard,
+    // },  
   ],
 });
 
