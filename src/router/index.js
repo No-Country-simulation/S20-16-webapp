@@ -15,6 +15,20 @@ const router = createRouter({
       component: LoginView,
     },
     {
+<<<<<<< Updated upstream
+=======
+       path: '/passform',
+       name: 'passform',
+       component: () => import('../views/PassView.vue'),
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('../views/DasboardView.vue'),
+   },
+  ],
+})
+>>>>>>> Stashed changes
 
       path: '/passform',
       name: 'Passform',
