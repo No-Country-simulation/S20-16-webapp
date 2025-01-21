@@ -3,7 +3,9 @@
     <div class="form-frame">
       <h1 class="edulink">Edulink</h1>
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
+
       <form @submit.prevent="handleLogin">
+
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -68,14 +70,11 @@ export default {
       const credentials = { email: this.email, password: this.password };
       try {
         // La respuesta contiene las credenciales, incluyendo numero_inicio
-        const response = await this.login(credentials);       
-       
+        const response = await this.login(credentials); 
+
         // Redirección usando numero_inicio desde el estado de Vuex
-        if (this.numero_inicio === 0) {       
-          
-          console.log("Redireccionando a passform");
-          this.$router.push('/passform'); // Redirige si es el primer inicio de sesión       
-          
+        if (this.numero_inicio === 0) {
+          this.$router.push('/PassForm'); // Redirige si es el primer inicio de sesión
         } else {
           this.$router.push('/dashboard'); // Redirige al dashboard si ya no es el primer inicio
         }
