@@ -3,6 +3,9 @@ import LoginView from '../views/LoginView.vue';
 import PassView from '../views/PassView.vue';
 import DashBoard from '@/views/DashboardView.vue';  // Asegúrate de que la ruta sea correcta
 
+
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -21,6 +24,7 @@ const router = createRouter({
       name: 'dashboard',  // Corrección del nombre
       component: DashBoard,
     },
+
   ],
 });
 

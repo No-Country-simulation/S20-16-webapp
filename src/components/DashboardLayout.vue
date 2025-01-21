@@ -15,11 +15,11 @@
 
         <!-- Fila 1 Columna 2: Foto Estudiante -->
         <div class="col-md-6">
-  <div class="student-info d-flex justify-content-end align-items-center">
-    <img :src="fotoEstudiante" alt="Foto Estudiante" class="student-photo mr-3" />
-    <h2>{{ nombreEstudiante }}</h2>
-  </div>
-</div>
+          <div class="student-info d-flex justify-content-end align-items-center">
+            <img :src="fotoEstudiante" alt="Foto Estudiante" class="student-photo mr-3" />
+            <h2>{{ nombreEstudiante }}</h2>
+          </div>
+        </div>
 
 
       </div>
@@ -221,19 +221,25 @@ export default {
 
 .student-info {
   display: flex;
-  justify-content: flex-end; /* Alinea todo a la derecha */
-  align-items: center; /* Asegura que la imagen y el texto estén a la misma altura */
+  justify-content: flex-end;
+  /* Alinea todo a la derecha */
+  align-items: center;
+  /* Asegura que la imagen y el texto estén a la misma altura */
 }
 
 .student-photo {
-  width: 60px;  /* Tamaño de la foto */
+  width: 60px;
+  /* Tamaño de la foto */
   height: 60px;
-  border-radius: 50%;  /* Hace la imagen circular */
-  margin-right: 10px; /* Espacio entre la foto y el nombre */
+  border-radius: 50%;
+  /* Hace la imagen circular */
+  margin-right: 10px;
+  /* Espacio entre la foto y el nombre */
 }
 
 h2 {
-  margin: 0; /* Elimina márgenes innecesarios */
+  margin: 0;
+  /* Elimina márgenes innecesarios */
 }
 
 
