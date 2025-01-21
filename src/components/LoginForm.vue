@@ -3,13 +3,11 @@
     <div class="form-frame">
       <h1 class="edulink">Edulink</h1>
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
-<<<<<<< HEAD
-      <form @submit.prevent="handleLogin">
-=======
+
 
       <form @submit.prevent="handleLogin">
 
->>>>>>> 8b14e6f917594963ae67f5a1b4807c03053de7b8
+
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input

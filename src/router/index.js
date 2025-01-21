@@ -11,7 +11,7 @@ const router = createRouter({
       component: LoginView,
     },
     {
-<<<<<<< HEAD
+
 
        path: '/passform',
        name: 'passform',
@@ -24,8 +24,7 @@ const router = createRouter({
    },
   ],
 })
-=======
->>>>>>> 8b14e6f917594963ae67f5a1b4807c03053de7b8
+
 
 
 
