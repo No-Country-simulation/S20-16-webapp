@@ -6,6 +6,7 @@
 - **FRONT END:** Luis Gonzalo Reyes Miranda
 - **UX/UI:** Magali Silva
 - **BACK END:** Sofia Isoardi Prieto
+- **BACK END:** Teo
 - **QA:** Adriana Lazzeretti
 
 ## Descripción del Proyecto
@@ -46,9 +47,9 @@ En la versión inicial del MVP:
 
 ## Tecnologías Utilizadas
 - **Back End:** ASP.NET, C#, MySQL
-- **Front End:**Vue.js , Bootstrap
+- **Front End:**
 - **UX/UI:** Figma
-- **QA:** Postman, Jira
+- **QA:** (por definir)
 
 ## Roadmap Futuro
 Futuras versiones incluirán:
