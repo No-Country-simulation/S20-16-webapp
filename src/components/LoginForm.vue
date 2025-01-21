@@ -3,13 +3,9 @@
     <div class="form-frame">
       <h1 class="edulink">Edulink</h1>
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
-<<<<<<< Updated upstream
 
       <form @submit.prevent="handleLogin">
 
-=======
-      <form @submit.prevent="handleLogin">
->>>>>>> Stashed changes
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
