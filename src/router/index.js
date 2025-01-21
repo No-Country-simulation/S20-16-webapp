@@ -1,8 +1,9 @@
-
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
-import PassView from '../views/PassView.vue'
-// import DashBoard from '@/views/DashBoard.vue';
+import PassView from '../views/PassView.vue';
+import DashBoard from '@/views/DashboardView.vue';  // Asegúrate de que la ruta sea correcta
+
+
 
 
 const router = createRouter({
@@ -14,19 +15,17 @@ const router = createRouter({
       component: LoginView,
     },
     {
-
       path: '/passform',
-      name: 'Passform',
+      name: 'passform',  // Cambio a minúsculas
       component: PassView,
-    },   
-    // {
-    //   path: '/dashboard',
-    //   name: 'Dasboard',
-    //   component: DashBoard,
-    // },  
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',  // Corrección del nombre
+      component: DashBoard,
+    },
+
   ],
 });
 
 export default router;
-
-
