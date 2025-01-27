@@ -18,6 +18,7 @@ const store = createStore({
   mutations: {
     setUser(state, user) {
       state.user = user;
+      state.numero_inicio = user.numero_inicio;
     },
     setAlumno(state, alumno) {
       if (!alumno || typeof alumno !== 'object') {

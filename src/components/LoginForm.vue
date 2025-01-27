@@ -67,10 +67,8 @@ export default {
       const credentials = { email: this.email, password: this.password };
       try {
         // La respuesta contiene las credenciales, incluyendo numero_inicio
-
-
-        const response = await this.login(credentials);       
-       
+        const response = await this.login(credentials);     
+      
         // Redirección usando numero_inicio desde el estado de Vuex
         if (this.numero_inicio === 0) {       
           

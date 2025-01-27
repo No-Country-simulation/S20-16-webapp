@@ -3,7 +3,7 @@
     "fotoEstudiante": "URL_TO_IMAGE",
     "nombreEstudiante": "Pablo Picasso",
     "carrera": "Ingeniería en Sistemas",
-    "materiasAprobadas": 2,
+    "materiasAprobadas": 6,
     "materiasPendientes": 1,
     "materiasTotales": 7,
     "inscripcion": {
@@ -35,7 +35,7 @@
         "diaHorario": "Martes 09:00 - 11:00"
       },
       {
-        "nombre": "Programación I",
+        "nombre": "Programación",
         "estado": "EnCurso",
         "anio": 1,
         "diaHorario": "Lunes 10:00 - 12:00"
