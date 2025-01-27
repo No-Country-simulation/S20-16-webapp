@@ -1,6 +1,7 @@
 {
+    "id" : "1",
     "email": "lgreyesmiranda@gmail.com",
     "password": "123456",
-    "numero_inicio": 0
+    "numero_inicio": 1
   }
   
