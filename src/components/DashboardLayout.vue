@@ -4,363 +4,443 @@
     <Sidebar :isSidebarVisible="isSidebarVisible" />
 
     <!-- Contenido principal -->
-    <div class="content" :class="{ 'content-expanded': isSidebarVisible }">
-
+    <div class="content" :class="{ 'content-expanded': isSidebarVisible && !isMobile }">
       <!-- Fila 1 -->
       <div class="row mb-4">
-        <!-- Fila 1 Columna 1: Carrera -->
         <div class="col-md-5">
-          <h1>{{ carrera }}</h1>
+          <h2>{{ getAlumno?.carrera || 'Carrera no disponible' }}</h2>
         </div>
+        <div class="col-md-6 d-flex justify-content-end">
+          <div class="student-info">
+            <!-- <img :src="getAlumno?.foto || '../assets/img/estudiante2.jpg'" alt="Foto Estudiante" class="student-photo" /> -->
+            
+            <img src="../assets/img/estudiante2.jpg" alt="Foto Estudiante" class="student-photo" />
 
-        <!-- Fila 1 Columna 2: Foto Estudiante -->
-        <div class="col-md-6">
-          <div class="student-info d-flex justify-content-end align-items-center">
-            <img :src="fotoEstudiante" alt="Foto Estudiante" class="student-photo mr-3" />
-            <h2>{{ nombreEstudiante }}</h2>
+
+            <h2>{{ getAlumno?.nombre || 'Estudiante' }}</h2>
           </div>
         </div>
-
-
       </div>
 
       <!-- Fila 2 -->
       <div class="row mb-4">
-        <!-- Fila 2 Columna 1: Gráfico y Materias -->
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="frame">
-            <h3>Gráfico</h3>
-            <div class="chart">
-              <!-- Aquí va el gráfico -->
-              [Gráfico Aquí]
-            </div>
-            <div class="subframes">
-              <div class="subframe">
-                <h4>Materias Cursadas</h4>
-                <!-- Lista de materias cursadas -->
-                <ul>
-                  <li>Matemáticas</li>
-                  <li>Física</li>
-                  <li>Programación</li>
-                </ul>
-              </div>
-              <div class="subframe">
-                <h4>Materias Pendientes</h4>
-                <!-- Lista de materias pendientes -->
-                <ul>
-                  <li>Redes</li>
-                  <li>Base de Datos</li>
-                </ul>
+            <h3>Progreso Académico</h3>
+            <div class="row">
+              <div class="col-md-6 chart">[Gráfico Aquí]</div>
+              <div class="col-md-6 subframes">
+                <div class="subframe cursadas">
+                  <i class="fa fa-check-circle text-success"></i>
+                  <h5>Materias Aprobadas</h5>
+                  <p>{{ getMateriasAprobadas.length }}</p>
+                </div>
+                <div class="subframe pendientes">
+                  <i class="fa fa-clock text-danger"></i>
+                  <h5>Materias Pendientes</h5>
+                  <p>{{ getMateriasPendientes.length }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Fila 2 Columna 2: 3 Frames -->
-        <div class="col-md-6">
-          <div class="frame">
-            <h3>Frame 1</h3>
-            <h2>Subtítulo 1</h2>
+        <div class="col-md-5">
+          <!-- Inscripción a Materias -->
+          <div class="frame centered-text">
+            <h3 class="title-blue">Inscripción a Materias</h3>
+            <p class="date-range">
+              {{ getFechaInicioInscripcionMaterias ? formatDate(getFechaInicioInscripcionMaterias) : 'N/A' }}
+            </p>
           </div>
-          <div class="frame">
-            <h3>Frame 2</h3>
-            <h2>Subtítulo 2</h2>
+
+          <!-- Inscripción a Exámenes -->
+          <div class="frame centered-text">
+            <h3 class="title-blue">Inscripción a Exámenes</h3>
+            <p class="date-range">
+              {{ getFechaInicioInscripcionExamenes ? formatDate(getFechaInicioInscripcionExamenes) : 'N/A' }}
+            </p>
           </div>
-          <div class="frame">
-            <h3>Frame 3</h3>
-            <h2>Subtítulo 3</h2>
+
+          <!-- Comienzo de Clases -->
+          <div class="frame centered-text">
+            <h3 class="title-blue">Comienzo de Clases</h3>
+            <p class="date-range">
+              {{ getFechaComienzoClases ? formatDate(getFechaComienzoClases) : 'N/A' }}
+            </p>
           </div>
         </div>
       </div>
 
-      <!-- Fila 3: Tabs -->
+      <!-- Fila 3: Primer conjunto de tabs -->
       <div class="row">
-        <!-- Fila 3 Columna 1: Tab 1 -->
         <div class="col-md-6">
           <div class="frame">
-            <!-- Cambiar el título dinámicamente según la pestaña activa -->
-            <h2>{{ activeTab === 'tab2-home' ? 'Primer año' : 'Segundo año' }}</h2>
-
-            <!-- Contenedor para las flechas, alineadas a la derecha -->
-            <div class="arrow-navigation">
-              <button class="btn btn-link prev-arrow" @click="changeTab('prev')">
-                &lt;
-              </button>
-              <button class="btn btn-link next-arrow" @click="changeTab('next')">
-                &gt;
-              </button>
+            <h2>{{ activeTab1 === 'tab1-home' ? 'Primer Año' : 'Segundo Año' }}</h2>
+            <div class="arrow-navigation d-flex justify-content-end">
+              <button @click="changeTab1('prev')">&lt;</button>
+              <button @click="changeTab1('next')">&gt;</button>
             </div>
-
-            <div class="tab-content" id="myTab2Content">
-              <div class="tab-pane fade" :class="{ 'show active': activeTab === 'tab2-home' }" id="tab2-home"
-                role="tabpanel" aria-labelledby="tab2-home-tab">
-                <p>Contenido del primer tab de la segunda columna.</p>
+            <div class="tab-content">
+              <div v-show="activeTab1 === 'tab1-home'">
+                <table class="materias-table">
+                  <tbody>
+                    <tr v-for="materia in getMateriasPrimerAnio" :key="materia.nombre">
+                      <td>{{ materia.nombre }}</td>
+                      <td class="align-right">
+                        <span :class="['styled-status', getEstadoClass(materia.estado)]">
+                          {{ materia.estado }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="tab-pane fade" :class="{ 'show active': activeTab === 'tab2-profile' }" id="tab2-profile"
-                role="tabpanel" aria-labelledby="tab2-profile-tab">
-                <p>Contenido del segundo tab de la segunda columna.</p>
+              <div v-show="activeTab1 === 'tab1-profile'">
+                <table class="materias-table">
+                  <tbody>
+                    <tr v-for="materia in getMateriasSegundoAnio" :key="materia.nombre">
+                      <td>{{ materia.nombre }}</td>
+                      <td class="align-right">
+                        <span :class="['styled-status', getEstadoClass(materia.estado)]">
+                          {{ materia.estado }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
 
-
-
-        <!-- Fila 3 Columna 2: Tab 2 -->
         <div class="col-md-6">
           <div class="frame">
-            <h3>Tab 2</h3>
-            <ul class="nav nav-tabs custom-tabs" id="myTab2" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab2-home-tab" data-bs-toggle="tab" href="#tab2-home" role="tab"
-                  aria-controls="tab2-home" aria-selected="true">Tus materias</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab2-profile-tab" data-bs-toggle="tab" href="#tab2-profile" role="tab"
-                  aria-controls="tab2-profile" aria-selected="false">Próximos examenes finales</a>
-              </li>
-            </ul>
-            <div class="tab-content" id="myTab2Content">
-              <div class="tab-pane fade show active" id="tab2-home" role="tabpanel" aria-labelledby="tab2-home-tab">
-                <p>Contenido del primer tab de la segunda columna.</p>
+            <h2>{{ activeTab2 === 'tab2-home' ? 'Mis Materias Actuales' : 'Próximos Exámenes' }}</h2>
+            <div class="arrow-navigation d-flex justify-content-end">
+              <button @click="changeTab2('prev')">&lt;</button>
+              <button @click="changeTab2('next')">&gt;</button>
+            </div>
+            <div class="tab-content">
+              <div v-show="activeTab2 === 'tab2-home'">
+                <table class="materias-table">
+                  <thead>
+                    <tr>
+                      <th>Materia</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="materia in getMateriasEnCurso" :key="materia.nombre">
+                      <td>{{ materia.nombre }}</td>
+                      <td>{{ materia.horario || 'Horario no disponible' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="tab-pane fade" id="tab2-profile" role="tabpanel" aria-labelledby="tab2-profile-tab">
-                <p>Contenido del segundo tab de la segunda columna.</p>
+              <div v-show="activeTab2 === 'tab2-profile'">
+                <table class="materias-table">
+                  <thead>
+                    <tr>
+                      <th>Materia</th>
+                      <th>Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="examen in getProximosExamenes" :key="examen.materia">
+                      <td>{{ examen.materia }}</td>
+                      <td>{{ examen.fechaExamen }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import Sidebar from './Sidebar.vue';
+import Sidebar from '../components/Sidebar.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  components: {
-    Sidebar
-  },
+  components: { Sidebar },
   data() {
     return {
-      isSidebarVisible: true,  // Sidebar visible por defecto en pantallas grandes
-      isMobile: false, // Detecta si el dispositivo es móvil
-      carrera: 'Ingeniería en Sistemas',
-      nombreEstudiante: 'Juan Pérez',
-      fotoEstudiante: 'https://via.placeholder.com/150',
-      activeTab: 'tab2-home',  // Establecer el tab por defecto
+      isSidebarVisible: true,
+      isMobile: false,
+      activeTab1: 'tab1-home',
+      activeTab2: 'tab2-home',
     };
   },
-  mounted() {
-    // Detectar si es un dispositivo móvil o no
-    this.isMobile = window.innerWidth <= 768;
+  computed: {
+    ...mapGetters({
+      getAlumno: 'getAlumno',
+      getMaterias: 'getMaterias',
+      getProximosExamenes: 'getProximosExamenes',
+      getFechasInscripcion: 'getFechasInscripcion',
 
-    // Si no es móvil, mantener el sidebar visible
-    if (!this.isMobile) {
-      this.isSidebarVisible = true;
-    }
+    }),
 
-    // Escuchar cambios de tamaño de la ventana
-    window.addEventListener('resize', this.handleResize);
+    getFechaInicioInscripcionMaterias() {
+      console.log('Fecha de inscripción a materias:', this.getFechasInscripcion.inscripcionMaterias);
+      return this.getFechasInscripcion?.inscripcionMaterias || 'N/A';
+    },
+
+    getFechaInicioInscripcionExamenes() {
+      console.log('Fecha de inscripción a exámenes:', this.getFechasInscripcion.inscripcionExamenes);
+      return this.getFechasInscripcion?.inscripcionExamenes || 'N/A';
+    },
+
+    getFechaComienzoClases() {
+      console.log('Fecha de comienzo de clases:', this.getFechasInscripcion.comienzoClases);
+      return this.getFechasInscripcion?.comienzoClases || 'N/A';
+    },
+
+    getMateriasPrimerAnio() {
+      return this.getMaterias.filter(materia => materia.anio === 1);
+    },
+    getMateriasSegundoAnio() {
+      return this.getMaterias.filter(materia => materia.anio === 2);
+    },
+    getMateriasEnCurso() {
+      return this.getMaterias.filter((materia) => materia.estado === 'EnCurso');
+    },
+    getMateriasAprobadas() {
+      return this.getMaterias.filter(materia => materia.estado === 'Aprobada');
+    },
+    getMateriasPendientes() {
+      return this.getMaterias.filter(materia => materia.estado === 'EnCurso' || materia.estado === 'Desaprobada');
+    },
+    getEstadoClass() {
+      return (estado) => ({
+        'estado-aprobada': estado === 'Aprobada',
+        'estado-desaprobada': estado === 'Desaprobada',
+        'estado-en-curso': estado === 'EnCurso',
+      });
+    },
   },
-  beforeDestroy() {
-    // Eliminar el listener cuando el componente se destruya
+
+  mounted() {
+    this.isMobile = window.innerWidth <= 768;
+    this.isSidebarVisible = !this.isMobile;
+    window.addEventListener('resize', this.handleResize);
+    console.log('Fechas agrupadas:', this.getFechasInscripcion); // Verifica los datos
+
+    this.fetchAlumnoData();
+  },
+  beforeUnmount() {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    ...mapActions(['fetchAlumnoData']),
     handleResize() {
       this.isMobile = window.innerWidth <= 768;
-      // En pantallas pequeñas, ocultar el sidebar
-      if (this.isMobile) {
-        this.isSidebarVisible = false;
-      } else {
-        this.isSidebarVisible = true;
-      }
+      this.isSidebarVisible = !this.isMobile;
     },
-    changeTab(direction) {
-      if (direction === 'prev') {
-        // Cambiar al tab anterior
-        this.activeTab = this.activeTab === 'tab2-home' ? 'tab2-profile' : 'tab2-home';
-      } else if (direction === 'next') {
-        // Cambiar al siguiente tab
-        this.activeTab = this.activeTab === 'tab2-home' ? 'tab2-profile' : 'tab2-home';
-      }
+    changeTab1(direction) {
+      const tabs = ['tab1-home', 'tab1-profile'];
+      const currentIndex = tabs.indexOf(this.activeTab1);
+      this.activeTab1 = tabs[(currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length];
     },
-  }
+    changeTab2(direction) {
+      const tabs = ['tab2-home', 'tab2-profile'];
+      const currentIndex = tabs.indexOf(this.activeTab2);
+      this.activeTab2 = tabs[(currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length];
+    },
+    formatDate(date) {
+      if (!date) return '';
+      const d = new Date(date);
+      return d.toLocaleDateString();  // Formato simple de fecha
+    },
+  },
 };
 </script>
 
+
 <style scoped>
+/* Estilos para la estructura general del dashboard */
 .dashboard {
   display: flex;
   height: 100vh;
-  /* Asegura que la altura sea del 100% de la pantalla */
   width: 100%;
-  /* Asegura que ocupe todo el ancho */
-  max-width: 100%;
-  /* Para evitar que el contenido tenga un límite de ancho */
-  overflow: hidden;
-  /* Evita el desbordamiento */
-  padding: 0;
-  /* Elimina márgenes o rellenos adicionales */
+  overflow: auto;
+  background-color: #f9f5fd;
+  margin-left: 50px;
+  padding: 1.5rem 1rem 0;
 }
 
 .content {
   flex-grow: 1;
   padding: 1rem;
-  transition: margin-left 0.3s ease;
-  margin-left: 0;
-  /* Cuando el sidebar está oculto no hay margen izquierdo */
+  transition: margin-left 0.3s;
 }
 
 .content-expanded {
   margin-left: 250px;
-  /* Cuando el sidebar está visible, el contenido se mueve 250px a la derecha */
 }
 
 .student-info {
   display: flex;
-  justify-content: flex-end;
-  /* Alinea todo a la derecha */
   align-items: center;
-  /* Asegura que la imagen y el texto estén a la misma altura */
 }
 
 .student-photo {
   width: 60px;
-  /* Tamaño de la foto */
   height: 60px;
   border-radius: 50%;
-  /* Hace la imagen circular */
   margin-right: 10px;
-  /* Espacio entre la foto y el nombre */
 }
 
-h2 {
-  margin: 0;
-  /* Elimina márgenes innecesarios */
+.centered-text {
+  text-align: center;
 }
 
+.title-blue {
+  color: #0056b3;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
 
+.date-range {
+  font-size: 1.3rem;
+}
 
 .frame {
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
+  border-radius: 20px;
   margin-bottom: 20px;
+  background-color: #fff;
+  /* Fondo blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Agrega una ligera sombra */
 }
 
-.chart {
-  height: 200px;
-  background-color: #f5f5f5;
-  margin-bottom: 10px;
+.frame.centered-text {
+  text-align: center;
+}
+
+.frame .title-blue {
+  margin-bottom: 0;
 }
 
 .subframes {
   display: flex;
+  flex-direction: column;
+  /* Apilar los elementos en columna */
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .subframe {
-  width: 48%;
+  padding: 10px;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  /* Espacio entre los subframes */
 }
 
-.nav-tabs .nav-link {
-  cursor: pointer;
+
+.subframe i {
+  font-size: 30px;
+  margin-bottom: 10px;
 }
 
-.custom-tabs {
-  margin-top: 0;
-  /* Eliminar el margen superior del contenedor de tabs */
-}
-
-.custom-tabs .nav-tabs {
-  margin-top: 0;
-  /* Eliminar el margen superior de las pestañas */
-}
-
-.custom-tabs .nav-link {
-  border-bottom: 2px solid transparent;
-  /* Línea base transparente */
-  color: #000;
-  /* Color del texto de las pestañas */
-  padding: 10px 15px;
-  /* Espaciado adecuado para las pestañas */
-}
-
-.custom-tabs .nav-link.active {
-  border-bottom: 2px solid #007bff;
-  /* Línea visible debajo del tab activo */
-  color: #007bff;
-  /* Cambia el color del texto en el tab activo */
+.subframe h5 {
+  margin: 0;
   font-weight: bold;
-  /* Resalta el texto del tab activo */
+  color: #333;
 }
 
-.custom-tabs .nav-link:hover {
-  border-bottom: 2px solid #0056b3;
-  /* Línea de hover (cuando el ratón pasa sobre el tab) */
-  color: #0056b3;
-  /* Cambia el color del texto cuando está en hover */
-}
-
-.arrow-navigation {
-  display: flex;
-  justify-content: flex-end;
-  /* Alinea las flechas hacia la derecha */
-  margin-top: 10px;
-  /* Espacio entre el título y las flechas */
+.subframe p {
+  font-size: 1.2rem;
 }
 
 .arrow-navigation button {
-  font-size: 20px;
-  /* Tamaño de los símbolos */
-  color: #007bff;
-  /* Color de las flechas */
-  background-color: transparent;
-  /* Sin fondo */
-  border: 2px solid #007bff;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0f0f0f;
   /* Borde azul */
+  background-color: #0f0f0f;
+  /* Fondo azul permanente */
   border-radius: 50%;
-  /* Borde circular */
-  padding: 8px;
-  /* Padding pequeño */
-  margin-left: 10px;
-  /* Espacio entre las flechas */
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
-  width: 35px;
-  /* Establecer un ancho fijo */
-  height: 35px;
-  /* Establecer una altura fija */
+  /* Hace el círculo */
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 18px;
+  /* Tamaño del texto */
+  color: #fff;
+  /* Color blanco para la flecha */
+  cursor: pointer;
+  margin: 0 5px;
+  /* Espaciado entre botones */
+}
+
+.materias-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.materias-table th,
+.materias-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.materias-table th {
+  background-color: #f2f2f2;
+}
+
+.styled-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
   font-weight: bold;
-  /* Asegura que las flechas sean un poco más visibles */
+  color: #fff;
+  text-align: center;
+  min-width: 100px;
+}
+
+/* Colores específicos por estado */
+.estado-aprobada {
+  background-color: #28a745;
+}
+
+.estado-desaprobada {
+  background-color: #dc3545;
+}
+
+.estado-en-curso {
+  background-color: #ffc107;
+  color: #000;
+}
+
+/* Alineación del estado a la derecha */
+.align-right {
+  text-align: right;
+}
+
+.custom-tabs li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.custom-tabs li a {
   text-decoration: none;
-  /* Elimina el subrayado */
+  color: #0056b3;
+  font-weight: bold;
 }
 
-.arrow-navigation button:hover {
-  background-color: #007bff;
-  /* Color de fondo al pasar el ratón */
-  color: white;
-  /* Cambiar color de la flecha cuando está activo */
-  border-color: #0056b3;
-  /* Cambiar el borde al pasar el ratón */
-}
-
-.arrow-navigation button:focus {
-  outline: none;
-  /* Elimina el contorno por defecto */
-}
-
-
-
-@media (max-width: 768px) {
-  .content {
-    margin-left: 0;
-  }
+.custom-tabs li a.active {
+  color: #0056b3;
+  border-bottom: 2px solid #0056b3;
 }
 </style>
