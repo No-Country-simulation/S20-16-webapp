@@ -1,14 +1,12 @@
 <template>
-  
+
   <div class="dashboard">
-     
-    
-    <div 
-  class="content" :class="{'ms-sidebar': isSidebarVisible && !isMobile,  // Aplica ms-sidebar solo si la barra lateral está visible y no es móvil
-    'content-expanded': isSidebarVisible && !isMobile  // Este es el efecto de expansión cuando la barra está visible
-  }">
-<!-- Header --> 
-      <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre"/>
+    <div class="content" :class="{
+      'ms-sidebar': isSidebarVisible && !isMobile,  // Aplica ms-sidebar solo si la barra lateral está visible y no es móvil
+      'content-expanded': isSidebarVisible && !isMobile  // Este es el efecto de expansión cuando la barra está visible
+       }">
+      <!-- Header -->
+      <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
       <!-- Fila 2 -->
       <div class="row g-4 mb-4">
         <div class="col-md-7">
@@ -21,19 +19,11 @@
                     <svg viewBox="0 0 36 36" class="circular-chart">
                       <path d="M18 2.0845
                         a 15.9155 15.9155 0 0 1 0 31.831
-                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#eee"
-                        stroke-width="3"
-                      />
+                        a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eee" stroke-width="3" />
                       <path d="M18 2.0845
                         a 15.9155 15.9155 0 0 1 0 31.831
-                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="url(#gradient)"
-                        stroke-width="3"
-                        stroke-dasharray="60, 100"
-                      />
+                        a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#gradient)" stroke-width="3"
+                        stroke-dasharray="60, 100" />
                       <defs>
                         <linearGradient id="gradient">
                           <stop offset="0%" stop-color="#4339F2" />
@@ -251,14 +241,15 @@ export default {
 }
 
 .ms-sidebar {
-  margin-left: 350px; /* Ajusta este valor al ancho de tu sidebar */
+  margin-left: 350px;
+  /* Ajusta este valor al ancho de tu sidebar */
 }
 
 .frame {
   background: white;
   border-radius: 1rem;
   padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
 }
 
@@ -355,7 +346,7 @@ export default {
   background: white;
   border-radius: 1rem;
   padding: 1.25rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .reg-card h3 {
@@ -470,12 +461,12 @@ export default {
   .dashboard {
     padding: 1rem;
   }
-  
+
   .progress-circle {
     width: 150px;
     height: 150px;
   }
-  
+
   .reg-card {
     margin: 0;
     width: 100%;

@@ -6,6 +6,7 @@ import Inscripcion from '../views/InscripcionView.vue';
 import ConfirmarInscripcion from '@/components/ConfirmarInscripcion.vue';
 import store from '../../store/index'; // Asegúrate de que la ruta sea correcta
 import HelpModal from '@/components/HelpModal.vue'; // Importamos el modal
+import Comprobantes from '@/components/ComprobantesIncripciones.vue';
 
 
 
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/confirmar-inscripcion',
       name: 'confirmar-inscripcion',  // Corrección del nombre
       component: ConfirmarInscripcion,
+    },
+    {
+      path: '/comprobantes',
+      name: 'comprobantes',  // Corrección del nombre
+      component: Comprobantes,
     },
     {
       path: '/ayuda',
