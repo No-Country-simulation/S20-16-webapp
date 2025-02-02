@@ -1,7 +1,10 @@
 <template>
   <div class="inscripcion-container">
     <!-- Header -->
-    <h1 class="header">Seleccioná las materias a cursar</h1>
+<!-- Header -->
+  <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
+
+    <h1>Seleccioná las materias a cursar</h1>
 
     <!-- Contenedor del frame de pestañas -->
     <div class="tabs-wrapper">
@@ -105,12 +108,11 @@ export default {
 .inscripcion-container {
   padding: 20px;
   max-width: 900px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+  margin: 0 auto; 
 }
 
 .header {
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   padding: 15px;
   font-size: 24px;
   margin-bottom: 20px;
