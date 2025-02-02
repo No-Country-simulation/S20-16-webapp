@@ -3,7 +3,9 @@
     <div class="form-frame">
       <img src="../assets/img/Logotipo1.png" alt="Edulink" class="logo-image" />
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
+
       <form @submit.prevent="handleLogin">
+
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -59,7 +61,7 @@ export default {
       return this.email && this.password ? "btn-active" : "btn-inactive";
     }
   },
-  methods: {
+methods: {
     ...mapActions(["login"]),
     async handleLogin() {
       try {
