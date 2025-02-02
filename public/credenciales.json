@@ -1,6 +1,14 @@
-{
+[
+  {
+    "id": "1",
     "email": "lgreyesmiranda@gmail.com",
+    "password": "123456",
+    "numero_inicio": 1
+  },
+  {
+    "id": "2",
+    "email": "adz@gmail.com",
     "password": "123456",
     "numero_inicio": 0
   }
-  
+]

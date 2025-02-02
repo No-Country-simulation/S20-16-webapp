@@ -1,0 +1,96 @@
+{
+  "alumno": {
+    "fotoEstudiante": "URL_TO_IMAGE",
+    "nombreEstudiante": "Carla García",
+    "carrera": "Tecnicatura en Análisis, Desarrollo y Programación de Aplicaciones",
+    "materiasAprobadas": 6,
+    "materiasPendientes": 1,
+    "materiasTotales": 7,
+    "inscripcion": {
+      "materias": {
+        "inicio": "2025-02-10",
+        "fin": "2025-02-20"
+      },
+      "examenes": {
+        "inicio": "2025-03-01",
+        "fin": "2025-03-05"
+      },
+      "comienzoClases": "2026-03-01"
+    },
+    "proximosExamenes": [
+      {
+        "materia": "Programación I",
+        "fechaExamen": "2025-03-05"
+      },
+      {
+        "materia": "Álgebra Lineal",
+        "fechaExamen": "2025-03-10"
+      }
+    ],
+    "materias": [
+      {
+        "id": 1,
+        "nombre": "Matemáticas I",
+        "estado": "Aprobada",
+        "anio": 1,
+        "diaHorario": "Martes 09:00 - 11:00"
+      },
+      {
+        "id": 2,
+        "nombre": "Programación",
+        "estado": "-",
+        "anio": 1,
+        "diaHorario": "Lunes 10:00 - 12:00"
+      },
+      {
+        "id": 3,
+        "nombre": "Física I",
+        "estado": "Desaprobada",
+        "anio": 1,
+        "diaHorario": "Jueves 08:00 - 10:00"
+      },
+      {
+        "id": 4,
+        "nombre": "Química I",
+        "estado": "Aprobada",
+        "anio": 1,
+        "diaHorario": "Viernes 11:00 - 13:00"
+      },
+      {
+        "id": 5,
+        "nombre": "Álgebra Lineal",
+        "estado": "EnCurso",
+        "anio": 1,
+        "diaHorario": "Miércoles 14:00 - 16:00"
+      },
+      {
+        "id": 6,
+        "nombre": "Estructuras",
+        "estado": "Desaprobada",
+        "anio": 2,
+        "diaHorario": "Lunes 16:00 - 18:00"
+      },
+      {
+        "id": 7,
+        "nombre": "Bases de Datos",
+        "estado": "EnCurso",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00"
+      }
+    ],
+    "historialMaterias": [
+      {
+        "nombre": "Matemáticas I",
+        "estado": "Aprobada"
+      },
+      {
+        "nombre": "Química I",
+        "estado": "Aprobada"
+      },
+      {
+        "nombre": "Física I",
+        "estado": "Desaprobada"
+      }
+    ]
+  }
+}
