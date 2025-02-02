@@ -1,7 +1,7 @@
 // Estilos para el formulario
 .form-frame {
   // Fondo blanco semitransparente para el formulario
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
   // Espaciado interno definido por una variable (debe declararse en otro lugar)
   padding: $form-padding;
   // Bordes redondeados
@@ -13,6 +13,7 @@
   max-width: 600px;
   // Centrado vertical y horizontal mediante margen automático
   margin: 5rem auto;
+  align-items: center; /* Centra verticalmente */
 
   h1 {
     font-size: 2rem;
@@ -27,6 +28,15 @@
     color: #333;
   }
 
+  p {
+    font-size: 16px;
+    text-align: center;
+    color: #333; /* Color de texto opcional */
+    margin: 1rem 0; /* Espaciado opcional */
+  }
+
+
+
   .form-control {
     // Mixin para entradas con bordes redondeados (debe definirse en otro archivo)
     @include rounded-input;
@@ -39,14 +49,14 @@
     &:focus {
       // Color del borde y sombra cuando el campo está enfocado
       border-color: $primary-color;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      box-shadow: 0 0 5px #150ca6;
     }
   }
 
   .forgot-password {
     margin-bottom: $button-spacing;
     font-size: 1rem;
-    color: #333;
+    color: #150ca6;
     cursor: pointer;
     &:hover {
       text-decoration: underline;
@@ -89,6 +99,20 @@
     padding: 1.5rem;
     width: 80%;
   }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.logo-image {
+  width: 150px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: auto;
+  margin-bottom: 1.5rem; /* Espaciado entre la imagen y el título */
+  margin-left: 3rem;
 }
 
 // Estilos para la vista de login
@@ -100,4 +124,5 @@
   background-image: url('../../assets/img/imagensesion.jpg');
   background-size: cover;
   background-position: center;
+  
 }

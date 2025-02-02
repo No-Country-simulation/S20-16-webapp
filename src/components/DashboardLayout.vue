@@ -1,44 +1,70 @@
 <template>
+  
   <div class="dashboard">
-    <!-- Sidebar -->
-    <Sidebar :isSidebarVisible="isSidebarVisible" />
-
-    <!-- Contenido principal -->
-    <div class="content" :class="{ 'content-expanded': isSidebarVisible && !isMobile }">
-      <!-- Fila 1 -->
-      <div class="row mb-4">
-        <div class="col-md-5">
-          <h2>{{ getAlumno?.carrera || 'Carrera no disponible' }}</h2>
-        </div>
-        <div class="col-md-6 d-flex justify-content-end">
-          <div class="student-info">
-            <!-- <img :src="getAlumno?.foto || '../assets/img/estudiante2.jpg'" alt="Foto Estudiante" class="student-photo" /> -->
-            
-            <img src="../assets/img/estudiante2.jpg" alt="Foto Estudiante" class="student-photo" />
-
-
-            <h2>{{ getAlumno?.nombre || 'Estudiante' }}</h2>
-          </div>
-        </div>
-      </div>
-
+     
+    
+    <div 
+  class="content" :class="{'ms-sidebar': isSidebarVisible && !isMobile,  // Aplica ms-sidebar solo si la barra lateral está visible y no es móvil
+    'content-expanded': isSidebarVisible && !isMobile  // Este es el efecto de expansión cuando la barra está visible
+  }">
+<!-- Header --> 
+      <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre"/>
       <!-- Fila 2 -->
-      <div class="row mb-4">
+      <div class="row g-4 mb-4">
         <div class="col-md-7">
           <div class="frame">
-            <h3>Progreso Académico</h3>
-            <div class="row">
-              <div class="col-md-6 chart">[Gráfico Aquí]</div>
-              <div class="col-md-6 subframes">
-                <div class="subframe cursadas">
-                  <i class="fa fa-check-circle text-success"></i>
-                  <h5>Materias Aprobadas</h5>
-                  <p>{{ getMateriasAprobadas.length }}</p>
+            <h3 class="mb-4">¡Vas por el 60% de la carrera!</h3>
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="progress-circle">
+                  <div class="progress-circle-inner">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                      <path d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="#eee"
+                        stroke-width="3"
+                      />
+                      <path d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="url(#gradient)"
+                        stroke-width="3"
+                        stroke-dasharray="60, 100"
+                      />
+                      <defs>
+                        <linearGradient id="gradient">
+                          <stop offset="0%" stop-color="#4339F2" />
+                          <stop offset="100%" stop-color="#7C3AED" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div class="progress-text">60%</div>
+                  </div>
                 </div>
-                <div class="subframe pendientes">
-                  <i class="fa fa-clock text-danger"></i>
-                  <h5>Materias Pendientes</h5>
-                  <p>{{ getMateriasPendientes.length }}</p>
+              </div>
+              <div class="col-md-6">
+                <div class="status-box">
+                  <div class="status-item approved">
+                    <div class="status-icon">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <div class="status-content">
+                      <p class="status-label">Materias aprobadas</p>
+                      <p class="status-number">{{ getMateriasAprobadas.length }}</p>
+                    </div>
+                  </div>
+                  <div class="status-item pending">
+                    <div class="status-icon">
+                      <i class="fa fa-clock"></i>
+                    </div>
+                    <div class="status-content">
+                      <p class="status-label">Materias pendientes</p>
+                      <p class="status-number">{{ getMateriasPendientes.length }}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -46,114 +72,66 @@
         </div>
 
         <div class="col-md-5">
-          <!-- Inscripción a Materias -->
-          <div class="frame centered-text">
-            <h3 class="title-blue">Inscripción a Materias</h3>
-            <p class="date-range">
-              {{ getFechaInicioInscripcionMaterias ? formatDate(getFechaInicioInscripcionMaterias) : 'N/A' }}
-            </p>
-          </div>
-
-          <!-- Inscripción a Exámenes -->
-          <div class="frame centered-text">
-            <h3 class="title-blue">Inscripción a Exámenes</h3>
-            <p class="date-range">
-              {{ getFechaInicioInscripcionExamenes ? formatDate(getFechaInicioInscripcionExamenes) : 'N/A' }}
-            </p>
-          </div>
-
-          <!-- Comienzo de Clases -->
-          <div class="frame centered-text">
-            <h3 class="title-blue">Comienzo de Clases</h3>
-            <p class="date-range">
-              {{ getFechaComienzoClases ? formatDate(getFechaComienzoClases) : 'N/A' }}
-            </p>
+          <div class="registration-cards">
+            <div class="reg-card">
+              <h3 class="text-primary">Inscripción a materias</h3>
+              <p>{{ getFechaInicioInscripcionMaterias ? formatDate(getFechaInicioInscripcionMaterias) : 'N/A' }}</p>
+            </div>
+            <div class="reg-card">
+              <h3 class="text-primary">Inscripción a exámenes</h3>
+              <p>{{ getFechaInicioInscripcionExamenes ? formatDate(getFechaInicioInscripcionExamenes) : 'N/A' }}</p>
+            </div>
+            <div class="reg-card">
+              <h3 class="text-primary">Comienzo de clases</h3>
+              <p>{{ getFechaComienzoClases ? formatDate(getFechaComienzoClases) : 'N/A' }}</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Fila 3: Primer conjunto de tabs -->
-      <div class="row">
+      <!-- Fila 3 -->
+      <div class="row g-4">
         <div class="col-md-6">
           <div class="frame">
-            <h2>{{ activeTab1 === 'tab1-home' ? 'Primer Año' : 'Segundo Año' }}</h2>
-            <div class="arrow-navigation d-flex justify-content-end">
-              <button @click="changeTab1('prev')">&lt;</button>
-              <button @click="changeTab1('next')">&gt;</button>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3>{{ activeTab1 === 'tab1-home' ? 'Primer Año' : 'Segundo Año' }}</h3>
+              <div class="nav-buttons">
+                <button @click="changeTab1('prev')" class="nav-btn">&lt;</button>
+                <button @click="changeTab1('next')" class="nav-btn">&gt;</button>
+              </div>
             </div>
-            <div class="tab-content">
-              <div v-show="activeTab1 === 'tab1-home'">
-                <table class="materias-table">
-                  <tbody>
-                    <tr v-for="materia in getMateriasPrimerAnio" :key="materia.nombre">
-                      <td>{{ materia.nombre }}</td>
-                      <td class="align-right">
-                        <span :class="['styled-status', getEstadoClass(materia.estado)]">
-                          {{ materia.estado }}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div v-show="activeTab1 === 'tab1-profile'">
-                <table class="materias-table">
-                  <tbody>
-                    <tr v-for="materia in getMateriasSegundoAnio" :key="materia.nombre">
-                      <td>{{ materia.nombre }}</td>
-                      <td class="align-right">
-                        <span :class="['styled-status', getEstadoClass(materia.estado)]">
-                          {{ materia.estado }}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div class="subjects-list">
+              <template v-if="activeTab1 === 'tab1-home'">
+                <div v-for="materia in getMateriasPrimerAnio" :key="materia.nombre" class="subject-item">
+                  <span>{{ materia.nombre }}</span>
+                  <span :class="['status-badge', getEstadoClass(materia.estado)]">
+                    {{ materia.estado }}
+                  </span>
+                </div>
+              </template>
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="frame">
-            <h2>{{ activeTab2 === 'tab2-home' ? 'Mis Materias Actuales' : 'Próximos Exámenes' }}</h2>
-            <div class="arrow-navigation d-flex justify-content-end">
-              <button @click="changeTab2('prev')">&lt;</button>
-              <button @click="changeTab2('next')">&gt;</button>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3>{{ activeTab2 === 'tab2-home' ? 'Tus materias' : 'Próximos exámenes finales' }}</h3>
+              <div class="nav-buttons">
+                <button @click="changeTab2('prev')" class="nav-btn">&lt;</button>
+                <button @click="changeTab2('next')" class="nav-btn">&gt;</button>
+              </div>
             </div>
-            <div class="tab-content">
-              <div v-show="activeTab2 === 'tab2-home'">
-                <table class="materias-table">
-                  <thead>
-                    <tr>
-                      <th>Materia</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="materia in getMateriasEnCurso" :key="materia.nombre">
-                      <td>{{ materia.nombre }}</td>
-                      <td>{{ materia.horario || 'Horario no disponible' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div v-show="activeTab2 === 'tab2-profile'">
-                <table class="materias-table">
-                  <thead>
-                    <tr>
-                      <th>Materia</th>
-                      <th>Fecha</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="examen in getProximosExamenes" :key="examen.materia">
-                      <td>{{ examen.materia }}</td>
-                      <td>{{ examen.fechaExamen }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div class="exam-list">
+              <template v-if="activeTab2 === 'tab2-profile'">
+                <div v-for="examen in getProximosExamenes" :key="examen.materia" class="exam-item">
+                  <div class="date-box">{{ examen.fechaExamen }}</div>
+                  <div class="exam-info">
+                    <h4>{{ examen.materia }}</h4>
+                    <p>{{ examen.horario }}</p>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -164,10 +142,11 @@
 
 <script>
 import Sidebar from '../components/Sidebar.vue';
+import Header from '../components/Header.vue'; // Importamos el nuevo header
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  components: { Sidebar },
+  components: { Sidebar, Header },
   data() {
     return {
       isSidebarVisible: true,
@@ -182,21 +161,17 @@ export default {
       getMaterias: 'getMaterias',
       getProximosExamenes: 'getProximosExamenes',
       getFechasInscripcion: 'getFechasInscripcion',
-
     }),
 
     getFechaInicioInscripcionMaterias() {
-      console.log('Fecha de inscripción a materias:', this.getFechasInscripcion.inscripcionMaterias);
       return this.getFechasInscripcion?.inscripcionMaterias || 'N/A';
     },
 
     getFechaInicioInscripcionExamenes() {
-      console.log('Fecha de inscripción a exámenes:', this.getFechasInscripcion.inscripcionExamenes);
       return this.getFechasInscripcion?.inscripcionExamenes || 'N/A';
     },
 
     getFechaComienzoClases() {
-      console.log('Fecha de comienzo de clases:', this.getFechasInscripcion.comienzoClases);
       return this.getFechasInscripcion?.comienzoClases || 'N/A';
     },
 
@@ -207,7 +182,7 @@ export default {
       return this.getMaterias.filter(materia => materia.anio === 2);
     },
     getMateriasEnCurso() {
-      return this.getMaterias.filter((materia) => materia.estado === 'EnCurso');
+      return this.getMaterias.filter(materia => materia.estado === 'EnCurso');
     },
     getMateriasAprobadas() {
       return this.getMaterias.filter(materia => materia.estado === 'Aprobada');
@@ -228,8 +203,6 @@ export default {
     this.isMobile = window.innerWidth <= 768;
     this.isSidebarVisible = !this.isMobile;
     window.addEventListener('resize', this.handleResize);
-    console.log('Fechas agrupadas:', this.getFechasInscripcion); // Verifica los datos
-
     this.fetchAlumnoData();
   },
   beforeUnmount() {
@@ -244,25 +217,25 @@ export default {
     changeTab1(direction) {
       const tabs = ['tab1-home', 'tab1-profile'];
       const currentIndex = tabs.indexOf(this.activeTab1);
-      this.activeTab1 = tabs[(currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length];
+      const nextIndex = (currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length;
+      this.activeTab1 = tabs[nextIndex];
     },
     changeTab2(direction) {
       const tabs = ['tab2-home', 'tab2-profile'];
       const currentIndex = tabs.indexOf(this.activeTab2);
-      this.activeTab2 = tabs[(currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length];
+      const nextIndex = (currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length;
+      this.activeTab2 = tabs[nextIndex];
     },
     formatDate(date) {
       if (!date) return '';
       const d = new Date(date);
-      return d.toLocaleDateString();  // Formato simple de fecha
+      return d.toLocaleDateString();
     },
   },
 };
 </script>
 
-
 <style scoped>
-/* Estilos para la estructura general del dashboard */
 .dashboard {
   display: flex;
   height: 100vh;
@@ -270,177 +243,242 @@ export default {
   overflow: auto;
   background-color: #f9f5fd;
   margin-left: 50px;
-  padding: 1.5rem 1rem 0;
+  padding: 2rem;
 }
 
 .content {
-  flex-grow: 1;
-  padding: 1rem;
-  transition: margin-left 0.3s;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-.content-expanded {
-  margin-left: 250px;
-}
-
-.student-info {
-  display: flex;
-  align-items: center;
-}
-
-.student-photo {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.centered-text {
-  text-align: center;
-}
-
-.title-blue {
-  color: #0056b3;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.date-range {
-  font-size: 1.3rem;
+.ms-sidebar {
+  margin-left: 350px; /* Ajusta este valor al ancho de tu sidebar */
 }
 
 .frame {
-  padding: 20px;
-  border: 1px solid #aaa;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background-color: #fff;
-  /* Fondo blanco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Agrega una ligera sombra */
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
 }
 
-.frame.centered-text {
-  text-align: center;
+/* Círculo de progreso */
+.progress-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
 }
 
-.frame .title-blue {
-  margin-bottom: 0;
+.progress-circle-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.subframes {
-  display: flex;
-  flex-direction: column;
-  /* Apilar los elementos en columna */
-  justify-content: space-between;
-  margin-top: 20px;
+.circular-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
 }
 
-.subframe {
-  padding: 10px;
-  background-color: #f4f4f9;
-  border-radius: 10px;
-  text-align: center;
-  margin-bottom: 10px;
-  /* Espacio entre los subframes */
-}
-
-
-.subframe i {
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-
-.subframe h5 {
-  margin: 0;
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
   font-weight: bold;
   color: #333;
 }
 
-.subframe p {
-  font-size: 1.2rem;
-}
-
-.arrow-navigation button {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #0f0f0f;
-  /* Borde azul */
-  background-color: #0f0f0f;
-  /* Fondo azul permanente */
-  border-radius: 50%;
-  /* Hace el círculo */
+/* Estado de materias */
+.status-box {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.status-item {
+  background: #f8f9fd;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
   align-items: center;
-  font-size: 18px;
-  /* Tamaño del texto */
-  color: #fff;
-  /* Color blanco para la flecha */
-  cursor: pointer;
-  margin: 0 5px;
-  /* Espaciado entre botones */
+  gap: 1rem;
 }
 
-.materias-table {
-  width: 100%;
-  border-collapse: collapse;
+.status-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.materias-table th,
-.materias-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.approved .status-icon {
+  background: #e6f7ed;
+  color: #28a745;
 }
 
-.materias-table th {
-  background-color: #f2f2f2;
+.pending .status-icon {
+  background: #fff1f1;
+  color: #dc3545;
 }
 
-.styled-status {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 14px;
+.status-content {
+  flex: 1;
+}
+
+.status-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.status-number {
+  margin: 0;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #fff;
-  text-align: center;
-  min-width: 100px;
+  color: #333;
 }
 
-/* Colores específicos por estado */
+/* Tarjetas de inscripción */
+.registration-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reg-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.reg-card h3 {
+  color: #4339F2;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.reg-card p {
+  margin: 0;
+  color: #666;
+}
+
+/* Lista de materias */
+.subjects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.subject-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Badges de estado */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
 .estado-aprobada {
-  background-color: #28a745;
+  background: #e6f7ed;
+  color: #28a745;
 }
 
 .estado-desaprobada {
-  background-color: #dc3545;
+  background: #fff1f1;
+  color: #dc3545;
 }
 
 .estado-en-curso {
-  background-color: #ffc107;
-  color: #000;
+  background: #fff8e6;
+  color: #ffc107;
 }
 
-/* Alineación del estado a la derecha */
-.align-right {
-  text-align: right;
+/* Lista de exámenes */
+.exam-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.custom-tabs li {
-  display: inline-block;
-  margin-right: 15px;
+.exam-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
-.custom-tabs li a {
-  text-decoration: none;
-  color: #0056b3;
-  font-weight: bold;
+.date-box {
+  background: #f8e6ff;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: #7c3aed;
+  text-align: center;
+  min-width: 70px;
 }
 
-.custom-tabs li a.active {
-  color: #0056b3;
-  border-bottom: 2px solid #0056b3;
+.exam-info h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.exam-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Botones de navegación */
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f8f9fd;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background: #eee;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+  
+  .progress-circle {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .reg-card {
+    margin: 0;
+    width: 100%;
+  }
 }
 </style>

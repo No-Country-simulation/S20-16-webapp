@@ -1,7 +1,7 @@
 <template>
   <div class="background-container">
     <div class="form-frame">
-      <h1 class="edulink">Edulink</h1>
+      <img src="../assets/img/Logotipo1.png" alt="Edulink" class="logo-image" />
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
       <form @submit.prevent="handleLogin">
         <div class="mb-3">
@@ -12,7 +12,7 @@
             v-model="email"
             class="form-control rounded-input"
             placeholder="&#xf0e0; example@gmail.com"
-            required
+            required @focus="clearErrorMessage"
           />
         </div>
         <div class="mb-3">
@@ -23,10 +23,11 @@
             v-model="password" 
             class="form-control rounded-input" 
             placeholder="&#x1F512;"
-            required
+            required @focus="clearErrorMessage"
           />
         </div>
         <div class="mb-3">
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
           <label for="forgot-password" class="form-label forgot-password">¿Olvidaste tu contraseña?</label>
         </div>
         <div>
@@ -43,47 +44,43 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      email: '',
-      password: ''   
+      email: "",
+      password: "",
+      errorMessage: "",
     };
   },
   computed: {
     buttonClass() {
-      return this.email && this.password ? 'btn-active' : 'btn-inactive';
-    },
-    // Acceso a numero_inicio desde el estado de Vuex
-    numero_inicio() {
-      return this.$store.state.numero_inicio; 
+      return this.email && this.password ? "btn-active" : "btn-inactive";
     }
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(["login"]),
     async handleLogin() {
-      const credentials = { email: this.email, password: this.password };
       try {
-        // La respuesta contiene las credenciales, incluyendo numero_inicio
-        const response = await this.login(credentials);     
-      
-        // Redirección usando numero_inicio desde el estado de Vuex
-        if (this.numero_inicio === 0) {       
-          
-          console.log("Redireccionando a passform");
-          this.$router.push('/passform'); // Redirige si es el primer inicio de sesión       
+        const usuario = await this.login({ email: this.email, password: this.password });
 
-
+        // Redirección después del login
+        if (usuario.numero_inicio === 0) {       
+          this.$router.push("/passform"); // Si es el primer inicio, redirige a PassForm
         } else {
-          this.$router.push('/dashboard'); // Redirige al dashboard si ya no es el primer inicio
+          this.$router.push("/dashboard"); // Si no, va al Dashboard
         }
       } catch (error) {
-        console.error('Error:', error.message); // Para depurar el error
-        alert('Error de inicio de sesión. Verifica tus credenciales.');
-      }
-    }
+        console.error('Error de inicio de sesión:', error);  // Log del error
+        
+        this.errorMessage = "Los datos ingresados no son correctos. Inténtalo de nuevo.";
+
+      }      
+    },
+    clearErrorMessage() {
+    this.errorMessage = "";
+  }
   }
 };
 </script>
