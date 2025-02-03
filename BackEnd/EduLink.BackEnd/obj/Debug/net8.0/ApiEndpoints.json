@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "EduLink.BackEnd.APIs.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "api/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "EduLink.BackEnd.Entidades.EntidadesDBB.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
