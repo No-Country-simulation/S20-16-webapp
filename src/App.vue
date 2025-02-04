@@ -80,4 +80,23 @@ onMounted(() => {
   cursor: pointer;
   z-index: 1000;
 }
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f5fd; /* Color de fondo para toda la pantalla */
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh; /* Asegura que el contenedor principal cubra toda la pantalla */
+  background-color: #f9f5fd; /* Mismo color de fondo */
+}
+
+.content {
+  flex-grow: 1;
+  // padding: 20px;
+}
 </style>

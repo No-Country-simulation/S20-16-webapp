@@ -3,12 +3,11 @@
     <!-- Header -->
     <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
 
-    <h1>Seleccioná las materias a cursar</h1>
+    <h1>Seleccioná los Exámenes a cursar</h1>
 
     <!-- Contenedor del frame de pestañas -->
     <div class="tabs-wrapper">
       <div class="tabs-frame">
-        <!-- Pestañas para los años -->
         <div class="tabs">
           <button
             v-for="(anio, index) in anios"
@@ -20,7 +19,6 @@
           </button>
         </div>
 
-        <!-- Contenido de las pestañas -->
         <div class="materias-tab">
           <div class="materias-grid">
             <div
@@ -106,7 +104,7 @@ export default {
     continuar() {
       console.log("Materias seleccionadas antes de navegar:", this.materiasSeleccionadas);
       this.$router.push({
-        name: "confirmar-inscripcion",
+        name: "confirmar-inscripcion-Examenes",
         query: { materiasSeleccionadas: JSON.stringify(this.materiasSeleccionadas) },
       });
     },
@@ -116,9 +114,13 @@ export default {
 
 <style scoped>
 .inscripcion-container {
-  padding: 20px;
+  padding: 20PX;
   max-width: 900px;
   margin: 0 auto;
+}
+
+.ms-sidebar {
+  margin-left: 350px;
 }
 
 .tabs-wrapper{
@@ -137,13 +139,9 @@ export default {
   margin: 0 auto 1rem; /* Centrado y con separación inferior */
 }
 
-.ms-sidebar {
-  /* margin-left: 350px; */
-}
-
 .tabs {
   display: flex;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
 }
 
 .tab {
@@ -169,7 +167,7 @@ export default {
 }
 
 .materia-frame {
-  background-color: #f8e6ff;
+  background-color: #e0e4ff;
   border-radius: 8px;
   padding: 15px;
   text-align: center;
@@ -178,7 +176,16 @@ export default {
 }
 
 .materia-frame.selected {
-  border: 2px solid #C765D0;
+  border: 2px solid #6d63f1;
+}
+
+.materia-nombre {
+  font-weight: bold;
+}
+
+.materia-horario {
+  font-size: 14px;
+  color: #666;
 }
 
 .actions {

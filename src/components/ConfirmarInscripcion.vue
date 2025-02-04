@@ -108,14 +108,20 @@ export default {
 .confirmacion-container {
   padding: 20px;
   max-width: 900px;
-  margin: 0 auto;
-  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0 auto; 
 }
 
 .header {
   font-size: 28px;
   font-weight: 500;
   margin-bottom: 30px;
+}
+
+.header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;  
+  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
 }
 
 .confirmacion-frame {
@@ -150,7 +156,7 @@ export default {
 }
 
 .fecha-box {
-  background-color: #f8e6ff;
+  background-color: #f9ecfb;
   padding: 12px;
   border-radius: 8px;
   font-weight: 500;
@@ -170,7 +176,7 @@ export default {
 }
 
 .materia-horario {
-  color: #666;
+  color: #f9ecfb;
   font-size: 14px;
 }
 

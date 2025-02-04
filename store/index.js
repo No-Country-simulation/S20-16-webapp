@@ -100,8 +100,8 @@ const store = createStore({
   actions: {
     async login({ commit, dispatch }, credentials) {
       try {
-        const response = await axios.get('../public/credenciales.json');
-        //const response = await axios.get('/credenciales.json');
+        //const response = await axios.get('../public/credenciales.json');
+        const response = await axios.get('/credenciales.json');
     
         const storedCredentials = response.data;
     
@@ -132,8 +132,8 @@ const store = createStore({
 
     async fetchAlumnoData({ commit }, userId) {
       try {
-        const response = await axios.get(`/public/alumno_1.json`);
-        //const response = await axios.get(`/alumno_1.json`);
+        //const response = await axios.get(`/public/alumno_1.json`);
+        const response = await axios.get(`/alumno_1.json`);
         if (!response.data || !response.data.alumno) {
           throw new Error('El JSON no contiene datos válidos del alumno.');
         }

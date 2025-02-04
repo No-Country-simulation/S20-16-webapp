@@ -194,7 +194,20 @@
   max-width: 1400px; /* Establecer un máximo ancho */
   margin: 0 auto; /* Centrado */
   }
+
+  .header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;  
+  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
+}
   
+.header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;  
+  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
+}
   .ms-sidebar {
     margin-left: 350px; /* Ajusta este valor al ancho de tu sidebar */
   }

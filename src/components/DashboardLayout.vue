@@ -236,12 +236,19 @@ export default {
   padding: 2rem;
 }
 
+.header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;  
+  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
+}
+
 .content {
   transition: margin-left 0.3s ease-in-out;
 }
 
 .ms-sidebar {
-  margin-left: 350px;
+  margin-left: 250px;
   /* Ajusta este valor al ancho de tu sidebar */
 }
 
