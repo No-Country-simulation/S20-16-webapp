@@ -226,6 +226,12 @@ export default {
 </script>
 
 <style scoped>
+
+
+.header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;    
+}
 .dashboard {
   display: flex;
   height: 100vh;
@@ -236,12 +242,7 @@ export default {
   padding: 2rem;
 }
 
-.header {
-  max-width: 900px; /* Igual que el content-wrapper */
-  width: 100%;  
-  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
-  margin: 0 auto 1rem; /* Centrado y con separación inferior */
-}
+
 
 .content {
   transition: margin-left 0.3s ease-in-out;

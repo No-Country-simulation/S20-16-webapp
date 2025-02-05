@@ -3,7 +3,7 @@
     <!-- Header -->
     <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
 
-    <h1>Seleccioná los Exámenes a cursar</h1>
+    <h3>Selecciona los Exámenes a cursar</h3>
 
     <!-- Contenedor del frame de pestañas -->
     <div class="tabs-wrapper">
@@ -102,7 +102,7 @@ export default {
       this.$router.push("/dashboard");
     },
     continuar() {
-      console.log("Materias seleccionadas antes de navegar:", this.materiasSeleccionadas);
+      console.log("Exámenes seleccionados antes de navegar:", this.materiasSeleccionadas);
       this.$router.push({
         name: "confirmar-inscripcion-Examenes",
         query: { materiasSeleccionadas: JSON.stringify(this.materiasSeleccionadas) },
@@ -113,9 +113,16 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  max-width: 1000px; /* Igual que el content-wrapper */
+  width: 100%;
+  padding: 2rem 1.5rem; /* Mantiene un diseño compacto */
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
+}
+
 .inscripcion-container {
-  padding: 20PX;
-  max-width: 900px;
+  padding: 15px;
+  max-width: 1000px; /* Ajustado al ancho que quieres */
   margin: 0 auto;
 }
 
@@ -123,20 +130,12 @@ export default {
   margin-left: 350px;
 }
 
-.tabs-wrapper{
+.tabs-wrapper {
   background: white;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
-
-}
-
-.header {
-  max-width: 900px; /* Igual que el content-wrapper */
-  width: 100%;  
-  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
-  margin: 0 auto 1rem; /* Centrado y con separación inferior */
 }
 
 .tabs {
@@ -179,15 +178,6 @@ export default {
   border: 2px solid #6d63f1;
 }
 
-.materia-nombre {
-  font-weight: bold;
-}
-
-.materia-horario {
-  font-size: 14px;
-  color: #666;
-}
-
 .actions {
   margin-top: 20px;
   display: flex;
@@ -227,6 +217,18 @@ export default {
 @media (max-width: 768px) {
   .inscripcion-container {
     padding: 1rem;
+  }
+
+  .tabs-wrapper {
+    padding: 1rem;
+  }
+
+  .materias-grid {
+    padding: 10px;
+  }
+
+  .btn {
+    padding: 8px 16px;
   }
 }
 </style>

@@ -55,18 +55,18 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@import "@/styles/_main.scss";
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f5fd;
+}
 
-// .app-container {
-//   display: flex;
-// }
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease; /* Para animación suave cuando se cambia el margen */
+}
 
-// .content {
-//   flex-grow: 1;
-//   padding: 20px;
-// }
-
-/* Botón para abrir/cerrar el sidebar en móviles */
 .menu-button {
   position: fixed;
   top: 15px;
@@ -79,24 +79,5 @@ onMounted(() => {
   border-radius: 5px;
   cursor: pointer;
   z-index: 1000;
-}
-
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f5fd; /* Color de fondo para toda la pantalla */
-}
-
-.app-container {
-  display: flex;
-  min-height: 100vh; /* Asegura que el contenedor principal cubra toda la pantalla */
-  background-color: #f9f5fd; /* Mismo color de fondo */
-}
-
-.content {
-  flex-grow: 1;
-  // padding: 20px;
 }
 </style>

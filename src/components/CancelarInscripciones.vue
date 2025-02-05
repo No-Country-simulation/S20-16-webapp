@@ -6,7 +6,7 @@
       <div class="content-wrapper">
         <!-- Título y botón -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1 class="h2 mb-0">Cancelar inscripciones</h1>
+          <h3 class="mb-0">Cancelar inscripciones</h3>
           <button class="btn btn-primary px-4">
             <i class="bi bi-x-lg me-2"></i> Cancelar
           </button>
@@ -139,6 +139,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.header {
+  max-width: 900px; /* Igual que el content-wrapper */
+  width: 100%;    
+  margin: 0 auto 1rem; /* Centrado y con separación inferior */
+}
 .dashboard {
   display: flex;
   height: 100vh;
@@ -148,15 +154,11 @@ onMounted(() => {
   padding: 1.5rem;
 }
 
-.header {
-  max-width: 900px; /* Igual que el content-wrapper */
-  width: 100%;  
-  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
-  margin: 0 auto 1rem; /* Centrado y con separación inferior */
-}
+
 
 .content {
   transition: margin-left 0.3s ease-in-out;
+  max-width: 1400px;
 }
 
 .ms-sidebar {

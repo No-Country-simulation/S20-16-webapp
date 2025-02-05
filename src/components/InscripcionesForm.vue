@@ -3,7 +3,7 @@
     <!-- Header -->
     <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
 
-    <h1>Seleccioná las materias a cursar</h1>
+    <h3>Selecciona las materias a cursar</h3>
 
     <!-- Contenedor del frame de pestañas -->
     <div class="tabs-wrapper">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 import Header from "../components/Header.vue";
 
@@ -66,6 +66,10 @@ export default {
 
     onMounted(() => {
       window.addEventListener("resize", handleResize);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("resize", handleResize);
     });
 
     return {
@@ -117,33 +121,66 @@ export default {
 <style scoped>
 .inscripcion-container {
   padding: 20px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.tabs-wrapper{
+.ms-sidebar {
+  box-shadow: none;
+}
+
+.header {
+  max-width: 1000px;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  margin: 0 auto 1rem;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+.materias-tab {
+  overflow-y: auto;
+  max-height: calc(100vh - 200px); /* Ajusta este valor según sea necesario */
+  padding-right: 5px; /* Espacio para la barra de desplazamiento */
+}
+
+/* Para navegadores webkit (Chrome, Safari) */
+.materias-tab::-webkit-scrollbar {
+  width: 8px;
+}
+
+.materias-tab::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.materias-tab::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.tabs-wrapper {
   background: white;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
-
-}
-
-.header {
-  max-width: 900px; /* Igual que el content-wrapper */
-  width: 100%;  
-  padding: 1rem 1.5rem; /* Mantiene un diseño compacto */  
-  margin: 0 auto 1rem; /* Centrado y con separación inferior */
-}
-
-.ms-sidebar {
-  /* margin-left: 350px; */
+  flex: 1;
+  overflow-y: auto;
 }
 
 .tabs {
   display: flex;
   border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
 }
 
 .tab {
@@ -163,22 +200,42 @@ export default {
 
 .materias-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 15px;
 }
 
 .materia-frame {
   background-color: #f8e6ff;
   border-radius: 8px;
-  padding: 15px;
+  padding: 12px;
   text-align: center;
   cursor: pointer;
-  transition: border 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.materia-frame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .materia-frame.selected {
   border: 2px solid #C765D0;
+  background-color: #f0d6ff;
+}
+
+.materia-nombre {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.materia-horario {
+  font-size: 0.9em;
+  color: #666;
 }
 
 .actions {
@@ -220,6 +277,25 @@ export default {
 @media (max-width: 768px) {
   .inscripcion-container {
     padding: 1rem;
+  }
+  
+  .tabs-wrapper {
+    padding: 1rem;
+  }
+
+  .materias-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .materia-frame {
+    padding: 10px;
+    min-height: 70px;
+  }
+
+  .btn {
+    padding: 8px 16px;
   }
 }
 </style>
