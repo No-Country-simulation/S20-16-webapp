@@ -15,7 +15,7 @@
         "inicio": "2025-03-01",
         "fin": "2025-03-05"
       },
-      "comienzoClases": "2026-03-01"
+      "comienzoClases": "2025-03-01"
     },
     "proximosExamenes": [
       {
@@ -30,52 +30,138 @@
     "materias": [
       {
         "id": 1,
-        "nombre": "Matemáticas I",
+        "nombre": "Algebra",
         "estado": "Aprobada",
         "anio": 1,
         "diaHorario": "Martes 09:00 - 11:00"
       },
       {
         "id": 2,
-        "nombre": "Programación",
-        "estado": "-",
+        "nombre": "Análisis Matemático 1",
+        "estado": "Desaprobada",
         "anio": 1,
-        "diaHorario": "Lunes 10:00 - 12:00"
+        "diaHorario": "25/marzo/2025",
+        "fecha" : "10/03"
       },
       {
         "id": 3,
-        "nombre": "Física I",
-        "estado": "Desaprobada",
+        "nombre": "Inglés Técnico",
+        "estado": "EnCurso",
         "anio": 1,
-        "diaHorario": "Jueves 08:00 - 10:00"
+        "diaHorario": "Lunes y martes  18:00 - 20:00",
+        "fecha" : "10/03"
       },
       {
         "id": 4,
-        "nombre": "Química I",
+        "nombre": "Administración de las Organizaciones",
         "estado": "Aprobada",
         "anio": 1,
-        "diaHorario": "Viernes 11:00 - 13:00"
+        "diaHorario": "Viernes 11:00 - 13:00",
+        "fecha" : "10/03"
       },
       {
         "id": 5,
-        "nombre": "Álgebra Lineal",
+        "nombre": "Metodología de la Investigación",
         "estado": "EnCurso",
         "anio": 1,
-        "diaHorario": "Miércoles 14:00 - 16:00"
+        "diaHorario": "Miércoles 18:00 - 20:00",
+        "fecha" : "11/03"
       },
       {
         "id": 6,
-        "nombre": "Estructuras",
-        "estado": "Desaprobada",
-        "anio": 2,
-        "diaHorario": "Lunes 16:00 - 18:00"
+        "nombre": "Programación 1",
+        "estado": "EnCurso",
+        "anio": 1,
+        "diaHorario": "Jueves y Viernes 18:00 - 20:00",
+        "fecha" : "12/03"
       },
       {
         "id": 7,
-        "nombre": "Bases de Datos",
-        "estado": "EnCurso",
+        "nombre": "Sistemas de Computación",
+        "estado": "Desaprobada",
+        "anio": 1,
+        "diaHorario": "28/marzo/2025",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 8,
+        "nombre": "Espacio de Definición Institucional",
+        "estado": "-",
+        "anio": 1,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 9,
+        "nombre": "Probabilidad Estadística",
+        "estado": "-",
         "anio": 2,
-        "diaHorario": "Martes 13:00 - 15:00"
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 10,
+        "nombre": "Análisis Matemático 2",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id":11,
+        "nombre": "Inglés Técnico 2",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 12,
+        "nombre": "Análisis de Sistemas",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 13,
+        "nombre": "Programación Orientada a Objetos",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 14,
+        "nombre": "Seminario de Programación",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 15,
+        "nombre": "Sistemas Operarivos",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 16,
+        "nombre": "Base de Datos",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
+      },
+      {
+        "id": 17,
+        "nombre": "Espacio de Definición Institucional",
+        "estado": "-",
+        "anio": 2,
+        "diaHorario": "Martes 13:00 - 15:00",
+        "fecha" : "10/03"
       }
     ],
     "historialMaterias": [

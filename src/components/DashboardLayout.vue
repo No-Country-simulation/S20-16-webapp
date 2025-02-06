@@ -1,17 +1,17 @@
 <template>
-
   <div class="dashboard">
     <div class="content" :class="{
-      'ms-sidebar': isSidebarVisible && !isMobile,  // Aplica ms-sidebar solo si la barra lateral está visible y no es móvil
-      'content-expanded': isSidebarVisible && !isMobile  // Este es el efecto de expansión cuando la barra está visible
-       }">
+      'ms-sidebar': isSidebarVisible && !isMobile,
+      'content-expanded': isSidebarVisible && !isMobile
+    }">
       <!-- Header -->
       <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
+
       <!-- Fila 2 -->
       <div class="row g-4 mb-4">
         <div class="col-md-7">
           <div class="frame">
-            <h3 class="mb-4">¡Vas por el 60% de la carrera!</h3>
+            <h3 class="mb-4">¡Vas por el {{ porcentajeMateriasAprobadas }}% de la carrera!</h3>
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="progress-circle">
@@ -23,7 +23,7 @@
                       <path d="M18 2.0845
                         a 15.9155 15.9155 0 0 1 0 31.831
                         a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#gradient)" stroke-width="3"
-                        stroke-dasharray="60, 100" />
+                        :stroke-dasharray="`${porcentajeMateriasAprobadas}, 100`" />
                       <defs>
                         <linearGradient id="gradient">
                           <stop offset="0%" stop-color="#4339F2" />
@@ -31,7 +31,7 @@
                         </linearGradient>
                       </defs>
                     </svg>
-                    <div class="progress-text">60%</div>
+                    <div class="progress-text">{{ porcentajeMateriasAprobadas }}%</div>
                   </div>
                 </div>
               </div>
@@ -99,6 +99,14 @@
                   </span>
                 </div>
               </template>
+              <template v-if="activeTab1 === 'tab2-home'">
+                <div v-for="materia in getMateriasSegundoAnio" :key="materia.nombre" class="subject-item">
+                  <span>{{ materia.nombre }}</span>
+                  <span :class="['status-badge', getEstadoClass(materia.estado)]">
+                    {{ materia.estado }}
+                  </span>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -113,18 +121,40 @@
               </div>
             </div>
             <div class="exam-list">
+              <!-- Tab de materias en curso -->
+              <template v-if="activeTab2 === 'tab2-home'">
+                <div v-for="materia in getMateriasEnCurso" :key="materia.nombre"
+                  class="exam-item d-flex align-items-center">
+                  <div class="date-box"
+                    style="background-color: #f9ecfb; padding: 10px; border-radius: 5px; min-width: 80px; text-align: center;">
+                    {{ materia.fecha }}
+                  </div>
+                  <div class="exam-info ms-3">
+                    <h4>{{ materia.nombre }}</h4>
+                    <p>{{ materia.diaHorario }}</p>
+                  </div>
+                </div>
+              </template>
+              <!-- Tab de materias desaprobadas -->
               <template v-if="activeTab2 === 'tab2-profile'">
-                <div v-for="examen in getProximosExamenes" :key="examen.materia" class="exam-item">
-                  <div class="date-box">{{ examen.fechaExamen }}</div>
+                <div v-for="materia in getMateriasDesaprobadas" :key="materia.nombre"
+                  class="exam-item d-flex justify-content-between">
+                  <!-- Materia a la izquierda -->
                   <div class="exam-info">
-                    <h4>{{ examen.materia }}</h4>
-                    <p>{{ examen.horario }}</p>
+                    <h4>{{ materia.nombre }}</h4>                   
+                  </div>
+
+                  <!-- Día y horario a la derecha -->
+                  <div class="dia-horario" style="text-align: right;">
+                    <p>{{ materia.diaHorario }}</p>
                   </div>
                 </div>
               </template>
             </div>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
@@ -165,21 +195,38 @@ export default {
       return this.getFechasInscripcion?.comienzoClases || 'N/A';
     },
 
+    // Calcular el porcentaje de materias aprobadas
+    porcentajeMateriasAprobadas() {
+      const totalMaterias = this.getMaterias.length;
+      const materiasAprobadas = this.getMateriasAprobadas.length;
+      if (totalMaterias === 0) return 0; // Evitar dividir por 0
+      return Math.round((materiasAprobadas / totalMaterias) * 100);
+    },
+
     getMateriasPrimerAnio() {
       return this.getMaterias.filter(materia => materia.anio === 1);
     },
+
     getMateriasSegundoAnio() {
       return this.getMaterias.filter(materia => materia.anio === 2);
     },
+
     getMateriasEnCurso() {
       return this.getMaterias.filter(materia => materia.estado === 'EnCurso');
     },
+
     getMateriasAprobadas() {
       return this.getMaterias.filter(materia => materia.estado === 'Aprobada');
     },
+
     getMateriasPendientes() {
-      return this.getMaterias.filter(materia => materia.estado === 'EnCurso' || materia.estado === 'Desaprobada');
+      return this.getMaterias.filter(materia => materia.estado === 'EnCurso' || materia.estado === 'Desaprobada' || materia.estado === '-');
     },
+    getMateriasDesaprobadas() {
+      return this.getMaterias.filter(materia => materia.estado === 'Desaprobada');
+    },
+
+
     getEstadoClass() {
       return (estado) => ({
         'estado-aprobada': estado === 'Aprobada',
@@ -188,50 +235,37 @@ export default {
       });
     },
   },
-
-  mounted() {
-    this.isMobile = window.innerWidth <= 768;
-    this.isSidebarVisible = !this.isMobile;
-    window.addEventListener('resize', this.handleResize);
-    this.fetchAlumnoData();
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  },
   methods: {
-    ...mapActions(['fetchAlumnoData']),
-    handleResize() {
-      this.isMobile = window.innerWidth <= 768;
-      this.isSidebarVisible = !this.isMobile;
+    changeTab1(action) {
+      if (action === 'prev') {
+        this.activeTab1 = this.activeTab1 === 'tab1-home' ? 'tab2-home' : 'tab1-home';
+      } else {
+        this.activeTab1 = this.activeTab1 === 'tab1-home' ? 'tab2-home' : 'tab1-home';
+      }
     },
-    changeTab1(direction) {
-      const tabs = ['tab1-home', 'tab1-profile'];
-      const currentIndex = tabs.indexOf(this.activeTab1);
-      const nextIndex = (currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length;
-      this.activeTab1 = tabs[nextIndex];
+
+    changeTab2(action) {
+      if (action === 'prev') {
+        this.activeTab2 = this.activeTab2 === 'tab2-home' ? 'tab2-profile' : 'tab2-home';
+      } else {
+        this.activeTab2 = this.activeTab2 === 'tab2-home' ? 'tab2-profile' : 'tab2-home';
+      }
     },
-    changeTab2(direction) {
-      const tabs = ['tab2-home', 'tab2-profile'];
-      const currentIndex = tabs.indexOf(this.activeTab2);
-      const nextIndex = (currentIndex + (direction === 'prev' ? -1 : 1) + tabs.length) % tabs.length;
-      this.activeTab2 = tabs[nextIndex];
-    },
+
     formatDate(date) {
-      if (!date) return '';
-      const d = new Date(date);
-      return d.toLocaleDateString();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString(undefined, options);
     },
   },
 };
 </script>
-
 <style scoped>
-
-
 .header {
-  max-width: 900px; /* Igual que el content-wrapper */
-  width: 100%;    
+  max-width: 900px;
+  /* Igual que el content-wrapper */
+  width: 100%;
 }
+
 .dashboard {
   display: flex;
   height: 100vh;
@@ -241,8 +275,6 @@ export default {
   margin-left: 50px;
   padding: 2rem;
 }
-
-
 
 .content {
   transition: margin-left 0.3s ease-in-out;
@@ -259,6 +291,26 @@ export default {
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
+}
+
+.exam-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  /* Espaciado entre elementos */
+}
+
+.exam-info {
+  flex: 1;
+  /* Esto asegurará que ocupe todo el espacio restante */
+}
+
+.dia-horario {
+  flex: 0 0 auto;
+  /* Esto hará que el campo de "Día y horario" no se expanda */
+  text-align: right;
+  /* Asegura que el texto esté alineado a la derecha */
 }
 
 /* Círculo de progreso */
@@ -393,17 +445,17 @@ export default {
 
 .estado-aprobada {
   background: #e6f7ed;
-  color: #28a745;
+  /* color: #28a745; */
 }
 
 .estado-desaprobada {
   background: #fff1f1;
-  color: #dc3545;
+  /* color: #dc3545; */
 }
 
 .estado-en-curso {
   background: #fff8e6;
-  color: #ffc107;
+  /* color: #ffc107; */
 }
 
 /* Lista de exámenes */
@@ -427,6 +479,9 @@ export default {
   color: #7c3aed;
   text-align: center;
   min-width: 70px;
+  /* Puedes probar también eliminando este min-width */
+  white-space: nowrap;
+  /* Añadir esta propiedad para evitar que el texto se corte */
 }
 
 .exam-info h4 {

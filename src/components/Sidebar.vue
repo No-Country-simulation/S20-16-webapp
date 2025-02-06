@@ -2,7 +2,7 @@
   <aside :class="['sidebar', { 'sidebar-hidden': !isSidebarVisible }]">
     <div class="sidebar-header text-center">
       <img src="../assets/img/Logotipo1.png" alt="Edulink" class="logo-image" />
-      <label class="text-muted">Nombre de la Institución</label>
+      <label class="text-muted">Insituto Superior Técnico</label>
     </div>
     
     <nav>
@@ -210,6 +210,9 @@ export default {
 .logo-image {
   max-width: 150px;
   margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav-link {

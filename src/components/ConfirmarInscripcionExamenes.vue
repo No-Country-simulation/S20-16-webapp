@@ -4,7 +4,7 @@
     <Header :carrera="getAlumno?.carrera" :nombre="getAlumno?.nombre" />
 
     <!-- Título -->
-    <h3>Revisa los exámenes seleccionadas</h3>
+    <h3>Revisa los exámenes seleccionados</h3>
 
     <!-- Contenedor del frame -->
     <div class="confirmacion-frame">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div v-else class="no-materias">
-          <p>No has seleccionado materias.</p>
+          <p>No has seleccionado exámenes.</p>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- Modal de confirmación -->
-    <div v-if="modalVisible" class="modal-backdrop" @click="cerrarModal">
+    <div v-if="modalVisible" class="modal-backdrop" @click="closeModal">
       <div class="modal-container" @click.stop>
         <div class="modal-content">
           <div class="modal-header">
@@ -61,9 +61,9 @@
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
               </div>
-              <h2>Confirmación de Inscripción</h2>
+              <h2>Inscripción Finalizada</h2>
             </div>
-            <button class="close-button" @click="cerrarModal" aria-label="Cerrar">
+            <button class="close-button" @click="closeModal" aria-label="Cerrar">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -71,15 +71,17 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>¿Estás seguro de que deseas finalizar la inscripción?</p>
+            <p>Tu inscripción ha sido procesada exitosamente.</p>
           </div>
           <div class="modal-footer">
-            <button @click="cerrarModal" class="btn btn-cancelar">Cancelar</button>
-            <button @click="finalizarInscripcion" class="btn btn-confirmar">Confirmar</button>
+            <button class="action-button" @click="confirmarYCerrar">
+              Entendido
+            </button>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -132,8 +134,13 @@ export default {
     mostrarModal() {
       this.modalVisible = true;
     },
-    cerrarModal() {
-      this.modalVisible = false;
+    closeModal() {
+      this.modalVisible = false;    
+    },
+
+    confirmarYCerrar() {
+      this.closeModal();
+      this.$router.push('/dashboard');
     },
     finalizarInscripcion() {
       if (this.materiasSeleccionadas && this.materiasSeleccionadas.length > 0) {
@@ -154,6 +161,7 @@ export default {
 </script>
 
 <style scoped>
+/* Los estilos del modal y el contenedor de confirmación */
 .confirmacion-container {
   padding: 20px;
   max-width: 1000px;
@@ -161,131 +169,282 @@ export default {
   overflow: hidden;
 }
 
+.header {
+  max-width: 900px;   
+  margin-bottom: 20px;
+}
+
 .ms-sidebar {
   margin-left: 300px; 
   transition: margin 0.3s ease;
-}
-
-.header {
-  max-width: 900px;
-  width: 100%;
 }
 
 .confirmacion-frame {
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .year-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .materias-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .materia-item {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 16px;
-  padding: 8px;
-  background-color: white;
+  gap: 12px;
+  padding: 10px;
+  background-color: #f9f9f9;
   border-radius: 8px;
   transition: all 0.2s ease;
 }
 
 .fecha-box {
-  background-color: #E0E4FF;
+  background-color: #e0e4ff;
   padding: 10px;
   border-radius: 8px;
   font-weight: 500;
   min-width: 55px;
   text-align: center;
-  
+}
+
+.materia-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .materia-nombre {
-  font-weight: 500;
-  color: #4C5EF7;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
 }
 
 .materia-horario {
-  font-size: 12px;
-  color: #6A6A6A;
+  font-size: 14px;
+  color: #888;
 }
 
 .delete-btn {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 6px;
+  color: #4040ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
 }
+.delete-btn:hover {
+  background-color: #f0f0ff;
+}
+
+.delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4040ff33;
+}
+
 
 .actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .btn {
-  padding: 12px 24px;
+  padding: 10px 18px;
   border-radius: 8px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s;
+  min-width: 180px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-volver {
-  background-color: #E0E4FF;
-  color: #4C5EF7;
+  background-color: white;
+  border: 2px solid #4040ff;
+  color: #4040ff;
+}
+
+.btn-volver:hover:not(:disabled) {
+  background-color: #f8f9ff;
 }
 
 .btn-confirmar {
-  background-color: #4C5EF7;
+  background-color: #4040ff;
+  border: none;
   color: white;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  background-color: #3333cc;
+}
+
+.no-materias {
+  text-align: center;
+  color: #666;
+  padding: 20px;
 }
 
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-container {
-  background-color: white;
-  border-radius: 8px;
-  width: 400px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  padding: 24px;
+  position: relative;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
   align-items: center;
+  gap: 16px;
+}
+
+.info-icon {
+  background-color: #f0f0ff;
+  color: #4040ff;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-button {
   background: none;
   border: none;
+  padding: 8px;
   cursor: pointer;
+  color: #666;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-content{
+  font-size: 24px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.modal-body {
+  margin-bottom: 24px;
+}
+
+.modal-body p {
+  margin: 0;
+  line-height: 1.5;
+  color: #333;
 }
 
 .modal-footer {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+}
+
+.action-button {
+  background-color: #4040ff;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  min-width: 200px;
+}
+
+.action-button:hover {
+  background-color: #3333cc;
+}
+
+/* Animaciones */
+.modal-backdrop {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-container {
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .confirmacion-container {
+    padding: 10px;
+    margin: 20px auto;
+  }
+
+  .ms-sidebar {
+    margin-left: 0;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }
 </style>

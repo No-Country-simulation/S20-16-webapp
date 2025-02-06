@@ -220,13 +220,14 @@ export default {
 }
 
 .materia-nombre {
-  font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
 }
 
 .materia-horario {
-  color: #666;
-  font-size: 12px;
+  color: #888;
+  font-size: 14px;
 }
 
 .delete-btn {

@@ -23,6 +23,7 @@
         <!-- Contenido de las pestañas -->
         <div class="materias-tab">
           <div class="materias-grid">
+            <!-- Mostrar las materias filtradas por año y estado "-" -->
             <div
               v-for="materia in filteredMaterias"
               :key="materia.id"
@@ -45,6 +46,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { ref, computed, onMounted, onUnmounted } from "vue";
@@ -87,8 +89,12 @@ export default {
     ...mapGetters({
       getAlumno: "getAlumno",
     }),
+    // Filtrar materias por estado "-" y año
     filteredMaterias() {
-      return this.getMaterias.filter((materia) => materia.anio === (this.currentTab === "Primer" ? 1 : 2));
+      console.log(this.getMaterias); 
+      return this.getMaterias
+        .filter((materia) => materia.estado === "-")
+        .filter((materia) => materia.anio === (this.currentTab === "Primer" ? 1 : 2));
     },
   },
   methods: {
@@ -118,6 +124,8 @@ export default {
 };
 </script>
 
+
+
 <style scoped>
 .inscripcion-container {
   padding: 20px;
@@ -144,34 +152,12 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.materias-tab {
-  overflow-y: auto;
-  max-height: calc(100vh - 200px); /* Ajusta este valor según sea necesario */
-  padding-right: 5px; /* Espacio para la barra de desplazamiento */
-}
-
-/* Para navegadores webkit (Chrome, Safari) */
-.materias-tab::-webkit-scrollbar {
-  width: 8px;
-}
-
-.materias-tab::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 4px;
-}
-
-.materias-tab::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
-
 .tabs-wrapper {
   background: white;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
-  flex: 1;
-  overflow-y: auto;
 }
 
 .tabs {
@@ -218,24 +204,9 @@ h1 {
   min-height: 80px;
 }
 
-.materia-frame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .materia-frame.selected {
   border: 2px solid #C765D0;
   background-color: #f0d6ff;
-}
-
-.materia-nombre {
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.materia-horario {
-  font-size: 0.9em;
-  color: #666;
 }
 
 .actions {
@@ -289,13 +260,43 @@ h1 {
     padding: 10px;
   }
 
-  .materia-frame {
-    padding: 10px;
-    min-height: 70px;
-  }
 
-  .btn {
-    padding: 8px 16px;
-  }
+
+.materias-tab {
+  overflow-y: auto;
+  max-height: calc(100vh - 200px); /* Ajusta este valor según sea necesario */
+  padding-right: 5px; /* Espacio para la barra de desplazamiento */
+}
+
+/* Para navegadores webkit (Chrome, Safari) */
+.materias-tab::-webkit-scrollbar {
+  width: 8px;
+}
+
+.materias-tab::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.materias-tab::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.materia-frame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.materia-nombre {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.materia-horario {
+  font-size: 0.9em;
+  color: #666;
+}
+
+ 
 }
 </style>
